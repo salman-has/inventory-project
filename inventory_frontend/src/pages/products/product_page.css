@@ -1,0 +1,43 @@
+
+  .product-container{
+    display: flex;
+    height: 90vh;
+    margin-top: 20px;
+  }
+
+  .sidebar{
+    width: 30%;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+  }
+
+  .content{
+    width: 70%;
+    padding: 20px;
+    background: #f1f5f9;
+  }
+
+  .btn-addproduct {
+    margin-top: 20px;
+    padding: 10px;
+    width: 70%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .table{
+    width: 100%;
+    background: white;
+  }
+
+  .btn-div{
+    display: flex;
+    padding: 0;
+    justify-content: space-around;
+    
+  }
+ 
