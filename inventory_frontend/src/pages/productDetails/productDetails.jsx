@@ -8,33 +8,41 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
   const [qty, setQty] = useState(1);
+ 
 
-  // 🔥 load product + related
+  // load product + related
   useEffect(() => {
+    
     const loadData = async () => {
       try {
         // product fetch
-        const res = await fetch(`http://localhost:5000/products/${id}`);
+        const res = await fetch(`http://localhost:5000/products/id/${id}`);
         const data = await res.json();
-
-        setProduct(data);
+        
+        
+        setProduct(data[0]);
+      
+        
 
         // related products (same category)
         const res2 = await fetch(
-          `http://localhost:5000/products/category/${data.category}`
+          `http://localhost:5000/products/category/${data[0].category}`
         );
         const relatedData = await res2.json();
-
+       
         setRelated(relatedData);
+       
       } catch (err) {
         console.log(err);
       }
+
     };
 
     loadData();
+   
   }, [id]);
 
-  // 🔥 total calculate
+  //  total calculate
   const total = qty * (product?.price || 0);
 
   if (!product) return <h2>Loading...</h2>;
@@ -42,14 +50,14 @@ export default function ProductDetails() {
   return (
     <div style={{ padding: "20px" }}>
       
-      {/* 🔥 Main Product */}
+      {/* Main Product */}
       <div style={{ display: "flex", gap: "20px" }}>
         <img src="https://via.placeholder.com/200" alt={product.name} />
 
         <div>
-          <h2>{product.name}</h2>
-          <p>Category: {product.category}</p>
-          <h3>₹{product.price}</h3>
+          <h2>{product?.name}</h2>
+          <p>Category: {product?.category}</p>
+          <h3>₹{product?.price}</h3>
 
           <input
             type="number"
@@ -66,7 +74,7 @@ export default function ProductDetails() {
         </div>
       </div>
 
-      {/* 🔥 Related Products */}
+      {/*  Related Products */}
       <h3 style={{ marginTop: "30px" }}>Related Products</h3>
 
       <div style={{

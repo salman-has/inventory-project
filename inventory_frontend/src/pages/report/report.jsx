@@ -2,52 +2,80 @@ import { useEffect, useState } from "react";
 
 export default function Report() {
   const [data, setData] = useState([]);
+  const [topProducts, setTopProducts] = useState([]);
+
   const [filters, setFilters] = useState({
     startDate: "",
     endDate: "",
     category: ""
   });
 
-  // load default data
+  // default load
   useEffect(() => {
     fetchData();
   }, []);
 
   // fetch function
-  const fetchData = async () => {
+  const fetchData = async (customFilters = filters) => {
     try {
-      let url = "http://localhost:5000/products/report/sales";
+      let baseUrl = "http://localhost:5000/products/report/sales";
+      let topUrl = "http://localhost:5000/products/report/top-sale-products";
 
-      const query = new URLSearchParams(filters).toString();
+      const query = new URLSearchParams(
+        Object.fromEntries(
+          Object.entries(customFilters).filter(([_, v]) => v)
+        )
+      ).toString();
+
       if (query) {
-        url += `?${query}`;
+        baseUrl += `?${query}`;
+        topUrl += `?${query}`;
       }
 
-      const res = await fetch(url);
-      const result = await res.json();
+      const [res1, res2] = await Promise.all([
+        fetch(baseUrl),
+        fetch(topUrl)
+      ]);
 
-      setData(result);
+      const data1 = await res1.json();
+      const data2 = await res2.json();
+
+      setData(data1);
+      setTopProducts(data2);
+
     } catch (err) {
       console.log(err);
     }
   };
 
-  // handle input change
+  //  input change
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  // submit filter
+  //  apply filter
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData();
+  };
+
+  //  reset
+  const handleReset = () => {
+    const resetFilters = {
+      startDate: "",
+      endDate: "",
+      category: ""
+    };
+
+    setFilters(resetFilters);
+    fetchData(resetFilters);
   };
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>📊 Sales Report</h2>
 
-      {/* Filter Form */}
+      {/*  Filter Form */}
       <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
         
         <input
@@ -81,9 +109,36 @@ export default function Report() {
         <button type="submit" style={{ marginLeft: "10px" }}>
           Filter
         </button>
+
+        <button
+          type="button"
+          onClick={handleReset}
+          style={{ marginLeft: "10px" }}
+        >
+          Reset
+        </button>
       </form>
 
-      {/* Table */}
+      {/* Top 5 */}
+      <h3>Top 5 Products</h3>
+
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        {topProducts.map((item, index) => (
+          <div key={index} style={{
+            border: "1px solid #ddd",
+            padding: "10px",
+            borderRadius: "8px",
+            width: "150px"
+          }}>
+            <h4>{item.name}</h4>
+            <p>{item.category}</p>
+            <p>Qty: {item.total_qty}</p>
+            <p>₹{item.total_sales}</p>
+          </div>
+        ))}
+      </div>
+
+      {/*  Table */}
       <table border="1" cellPadding="10" width="100%">
         <thead>
           <tr>

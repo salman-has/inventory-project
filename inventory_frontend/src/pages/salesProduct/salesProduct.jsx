@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import "./salesProduct.css";
 import { useEffect, useState } from "react";
 
@@ -10,8 +10,13 @@ export default function SalesProduct() {
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+      .then((data) =>setProducts(data));
+      
+     
+  }, [products]);
+
+  //test function
+  
 
   const navigate = useNavigate();
   return (
@@ -22,10 +27,10 @@ export default function SalesProduct() {
         <div
           className="card"
           key={p.id}
-          onClick={() => navigate(`/products/${p.id}`)}
+          onClick={() => navigate(`/productDetails/id/${p.id}`)}
         >
           <img
-            src="https://via.placeholder.com/150"
+            src="="https://picsum.photos/200"
             alt={p.name}
             className="card-img"
           />

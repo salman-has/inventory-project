@@ -8,8 +8,8 @@ export default function Navbar() {
       <div className="navbar-links">
         <Link to="/" className="link">Dashboard</Link>
         <Link to="/product_page" className="link">Products</Link>
-        <Link to="/sales" className="link">Sales</Link>
-        {/* <Link to="/salesProduct" className="link">Sales</Link> */}
+        {/* <Link to="/sales" className="link">Sales</Link> */}
+        <Link to="/salesProduct" className="link">Sales</Link>
         <Link to="/report" className="link">Reports</Link>
       </div>
     </div>

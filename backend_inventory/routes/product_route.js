@@ -17,10 +17,12 @@ router.get("/category/:category", (req, res) => {
 //get- product by id...
 router.get("/id/:id", (req, res)=>{
   const id=req.params.id;
+  console.log("ID received:", id); 
   if(id && id !=""){
     const sql="SELECT * FROM products WHERE id = ?";
     db.query(sql, [id], (err, result)=>{
       if(err) return res.send(err);
+      console.log("DB result:", result);
       res.json(result);
     });
   }

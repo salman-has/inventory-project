@@ -7,6 +7,7 @@ import UpdateProduct from "../../pages/UpdateProduct/UpdateProduct";
 import Sales from "../../pages/sales/sale";
 import SalesProduct from "../../pages/salesProduct/salesProduct";
 import Report from "../../pages/report/report";
+import ProductDetails from "../../pages/productDetails/productDetails";
 
 
 // pages 
@@ -25,10 +26,12 @@ function Router() {
         <Route path="/product_page" element={<Product_page />} />
         <Route path="/add-product" element={<Add_product></Add_product>} />
         <Route path="/updateProduct/:id" element={<UpdateProduct />} />
-        <Route path="/sales" element={<Sales></Sales>} />
-        {/* <Route path="/salesProduct" element={<SalesProduct></SalesProduct>} /> */}
+        {/* <Route path="/sales" element={<Sales></Sales>} /> */}
+        <Route path="/salesProduct" element={<SalesProduct></SalesProduct>} />
+        <Route path="/productDetails/id/:id" element={<ProductDetails></ProductDetails>} />
         <Route path="/report" element={<Report></Report>} />
       </Routes>
+      
     </BrowserRouter>
   );
 }
