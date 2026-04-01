@@ -1,17 +1,80 @@
-.dashboard-container{
-    padding: 20px;
+/* Container */
+.db-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Title */
+.db-title {
+  margin-bottom: 20px;
+}
+
+/* Cards grid */
+.db-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Card base */
+.db-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.db-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Value */
+.db-card h3 {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+/*  Color themes */
+.revenue {
+  border-left: 6px solid #22c55e;
+}
+
+.orders {
+  border-left: 6px solid #3b82f6;
+}
+
+.top {
+  border-left: 6px solid #f59e0b;
+}
+
+.stock {
+  border-left: 6px solid #ef4444;
+}
+
+/*  RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .db-cards {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .cards{
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .db-cards {
+    grid-template-columns: 1fr;
   }
-  .card{
-    background: #1e293b;
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-    flex: 1;
-    text-align: center;
-    font-size:18px;
+
+  .db-card {
+    padding: 15px;
   }
+
+  .db-card h3 {
+    font-size: 18px;
+  }
+}

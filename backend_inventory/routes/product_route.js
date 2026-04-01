@@ -74,8 +74,15 @@ router.delete("/delete/:id", (req, res) => {
 
 //sales product report
 router.post("/sale", async (req, res) => {
-  const { items } = req.body;
+  
+ const { items } = req.body;
 
+// console.log("body: ", req.body);
+
+//  correct validation
+if (!items || items.length === 0) {
+  return res.json({ message: "Invalid data" });
+}
   try {
     let total = 0;
 
@@ -104,7 +111,7 @@ router.post("/sale", async (req, res) => {
       }
 
       const product = result[0];
-      console.log("result in product =  ", product);
+      // console.log("result in product =  ", product);
 
       if (product.stock < item.quantity) {
         if (product.stock === 0) {

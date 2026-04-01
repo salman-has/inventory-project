@@ -1,43 +1,151 @@
+/* Container */
+.pp-container {
+  display: flex;
+  min-height: 100vh;
+  margin-top: 10px;
+}
 
-  .product-container{
-    display: flex;
-    height: 90vh;
-    margin-top: 20px;
+/* Sidebar */
+.pp-sidebar {
+  width: 25%;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+.pp-sidebar h2 {
+  margin-bottom: 15px;
+}
+
+/* Add button */
+.pp-btn-add {
+  width: 100%;
+  padding: 10px;
+  background: #38bdf8;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pp-btn-add:hover {
+  background: #0ea5e9;
+}
+
+/* Content */
+.pp-content {
+  border-top:#1e293b 5px solid ;
+  width: 75%;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+/* Table wrapper (scroll fix) */
+.pp-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table */
+.pp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Header */
+.pp-table thead {
+  background: #1e293b;
+  color: white;
+}
+
+.pp-table th,
+.pp-table td {
+  padding: 12px;
+  text-align: center;
+}
+
+/* Rows */
+.pp-table tbody tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+.pp-table tbody tr:hover {
+  background: #e2e8f0;
+}
+
+/* Buttons */
+.pp-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pp-edit {
+  background: #facc15;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pp-delete {
+  background: #ef4444;
+  border: none;
+  padding: 5px 8px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pp-edit:hover {
+  background: #eab308;
+}
+
+.pp-delete:hover {
+  background: #dc2626;
+}
+
+/*  RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .pp-container {
+    flex-direction: column;
   }
 
-  .sidebar{
-    width: 30%;
-    background: #1e293b;
-    color: white;
-    padding: 20px;
-  }
-
-  .content{
-    width: 70%;
-    padding: 20px;
-    background: #f1f5f9;
-  }
-
-  .btn-addproduct {
-    margin-top: 20px;
-    padding: 10px;
-    width: 70%;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .table{
+  .pp-sidebar {
     width: 100%;
-    background: white;
   }
 
-  .btn-div{
-    display: flex;
-    padding: 0;
-    justify-content: space-around;
+  .pp-content {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .pp-table th,
+  .pp-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .pp-sidebar{
+    width: 88%;
     
   }
- 
+  .pp-content{
+    margin-top: 9px;
+    border-top: none;
+  }
+  .pp-table-wrapper{
+    border: gray 2px solid;
+    padding: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .pp-btn-add {
+    padding: 8px;
+  }
+}

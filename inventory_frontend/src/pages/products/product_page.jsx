@@ -6,87 +6,95 @@ import { useNavigate } from "react-router-dom";
 export default function Product_page() {
   const [products, setProducts] = useState([]);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-//update icon click
-function updateIconClick(pid){
- 
-  navigate(`/updateProduct/${pid}`);
+  //update icon click
+  function updateIconClick(pid) {
+    navigate(`/updateProduct/${pid}`);
+  }
 
-}
+  // delete function ....
+  const handleDelete = (id) => {
+    if (!window.confirm("Are you sure to delete?")) return;
 
-// delete function ....
-const handleDelete = (id) => {
-  if (!window.confirm("Are you sure to delete?")) return;
-
-  fetch(`http://localhost:5000/products/delete/${id}`, {
-    method: "DELETE"
-  })
-    .then((res) => res.json())
-    .then(() => {
-      alert("Deleted successfully");
-
-      // UI update (without reload)
-      setProducts(products.filter((p) => p.id !== id));
+    fetch(`http://localhost:5000/products/delete/${id}`, {
+      method: "DELETE",
     })
-    .catch((err) => console.log(err));
-};
+      .then((res) => res.json())
+      .then(() => {
+        alert("Deleted successfully");
 
+        // UI update (without reload)
+        setProducts(products.filter((p) => p.id !== id));
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     fetch(`http://localhost:5000/products/`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
-      
   }, []);
 
   return (
-    <div className="product-container">
-      <div className="sidebar">
+    <div className="pp-container">
+      {/* Sidebar */}
+      <div className="pp-sidebar">
         <h2>Action</h2>
-         <Link to="/add-product">
-        <button className="btn-addproduct">+ Add Product</button>
-      </Link>
+        <Link to="/add-product">
+          <button className="pp-btn-add">+ Add Product</button>
+        </Link>
       </div>
 
-      <div style={{ padding: "20px" }} className="content">
+      {/* Content */}
+      <div className="pp-content">
         <h2>📦 Products</h2>
 
-        <table border="1" cellPadding="10" className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Category</th>
-              <th>Product Id</th>
-              <th>Name</th>
-
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {products.map((p) => (
-              <tr key={p.id}>
-                <td>{p.id}</td>
-                <td>{p.category}</td>
-                <td>{p.product_id}</td>
-                <td>{p.name}</td>
-
-                <td>{p.price}</td>
-                <td>{p.stock}</td>
-                <td>
-                   <div className="btn-div">
-                      <button onClick={() => updateIconClick(p.id)}>✏️ Edit</button>
-                      <button onClick={() => handleDelete(p.id)}>🗑️ Delete</button>
-                   </div>
-                </td>
+        <div className="pp-table-wrapper">
+          <table className="pp-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Product Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {products.map((p) => (
+                <tr key={p.id}>
+                  <td>{p.id}</td>
+                  <td>{p.category}</td>
+                  <td>{p.product_id}</td>
+                  <td>{p.name}</td>
+                  <td>₹{p.price}</td>
+                  <td>{p.stock}</td>
+                  <td>
+                    <div className="pp-btn-group">
+                      <button
+                        className="pp-edit"
+                        onClick={() => updateIconClick(p.id)}
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        className="pp-delete"
+                        onClick={() => handleDelete(p.id)}
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

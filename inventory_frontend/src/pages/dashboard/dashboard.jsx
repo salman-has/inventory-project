@@ -1,18 +1,16 @@
 import "./dashboard.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 export default function Dashboard() {
-
-    const [summary, setSummary] = useState({
+  const [summary, setSummary] = useState({
     total_orders: 0,
     total_revenue: 0,
-   });
+  });
 
-   const [topSoledProduct, setTopSoledProduct] = useState(null);
+  const [topSoledProduct, setTopSoledProduct] = useState(null);
 
-   const [lowStock, setLowStock] = useState(null);
+  const [lowStock, setLowStock] = useState(null);
 
   useEffect(() => {
-
     // fetch summary report
     fetch("http://localhost:5000/products/report/summary")
       .then((res) => res.json())
@@ -21,8 +19,8 @@ export default function Dashboard() {
       })
       .catch((err) => console.log(err));
 
-      //top soled product find api
-      fetch("http://localhost:5000/products/report/top-sale")
+    //top soled product find api
+    fetch("http://localhost:5000/products/report/top-sale")
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {
@@ -30,26 +28,40 @@ export default function Dashboard() {
         }
       });
 
-      // api route for low stock ...
-       fetch("http://localhost:5000/products/report/low-stock")
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.length > 0) {
-        setLowStock(data[0]);
-      }
-    });
+    // api route for low stock ...
+    fetch("http://localhost:5000/products/report/low-stock")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.length > 0) {
+          setLowStock(data[0]);
+        }
+      });
   }, []);
 
-
   return (
-    <div className="dashbpard-container">
-      <h2>📊 Dashboard</h2>
+    <div className="db-container">
+      <h2 className="db-title">📊 Dashboard</h2>
 
-      <div className="cards">
-        <div className="card">💰 Total Sales Revanue: ₹{summary.total_revenue}</div>
-        <div className="card">📦 Total Orders: {summary.total_orders}</div>
-        <div className="card">🔥 Top Soled Product: {topSoledProduct ? topSoledProduct.name : "Loading..."}</div>
-        <div className="card">⚠️ Low Stock:  {lowStock ? `${lowStock.name} (${lowStock.stock})` : "OK"}</div>
+      <div className="db-cards">
+        <div className="db-card revenue">
+          💰 Total Sales Revenue
+          <h3>₹{summary.total_revenue}</h3>
+        </div>
+
+        <div className="db-card orders">
+          📦 Total Orders
+          <h3>{summary.total_orders}</h3>
+        </div>
+
+        <div className="db-card top">
+          🔥 Top Sold Product
+          <h3>{topSoledProduct ? topSoledProduct.name : "Loading..."}</h3>
+        </div>
+
+        <div className="db-card stock">
+          ⚠️ Low Stock
+          <h3>{lowStock ? `${lowStock.name} (${lowStock.stock})` : "OK"}</h3>
+        </div>
       </div>
     </div>
   );

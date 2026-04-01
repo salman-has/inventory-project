@@ -1,0 +1,134 @@
+/* Container */
+.rp-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.rp-title {
+  margin-bottom: 20px;
+}
+
+/* Form */
+.rp-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.rp-input,
+.rp-select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.rp-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.rp-btn.filter {
+  background: #3b82f6;
+  color: white;
+}
+
+.rp-btn.reset {
+  background: #ef4444;
+  color: white;
+}
+
+.rp-btn:hover {
+  opacity: 0.9;
+}
+
+/* Top cards */
+.rp-subtitle {
+  margin-bottom: 10px;
+}
+
+.rp-top-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.rp-card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.rp-price {
+  color: green;
+  font-weight: bold;
+}
+
+/* Table */
+.rp-table-wrapper {
+  overflow-x: auto;
+}
+
+.rp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.rp-table thead {
+  background: #1e293b;
+  color: white;
+}
+
+.rp-table th,
+.rp-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.rp-table tbody tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+.rp-table tbody tr:hover {
+  background: #e2e8f0;
+}
+
+/* No data */
+.rp-no-data {
+  text-align: center;
+  padding: 15px;
+}
+
+/*  RESPONSIVE */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .rp-top-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .rp-form {
+    flex-direction: column;
+  }
+
+  .rp-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-table th,
+  .rp-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

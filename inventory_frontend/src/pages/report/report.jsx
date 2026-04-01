@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./report.css";
 
 export default function Report() {
   const [data, setData] = useState([]);
@@ -7,7 +8,7 @@ export default function Report() {
   const [filters, setFilters] = useState({
     startDate: "",
     endDate: "",
-    category: ""
+    category: "",
   });
 
   // default load
@@ -22,9 +23,7 @@ export default function Report() {
       let topUrl = "http://localhost:5000/products/report/top-sale-products";
 
       const query = new URLSearchParams(
-        Object.fromEntries(
-          Object.entries(customFilters).filter(([_, v]) => v)
-        )
+        Object.fromEntries(Object.entries(customFilters).filter(([_, v]) => v)),
       ).toString();
 
       if (query) {
@@ -32,17 +31,13 @@ export default function Report() {
         topUrl += `?${query}`;
       }
 
-      const [res1, res2] = await Promise.all([
-        fetch(baseUrl),
-        fetch(topUrl)
-      ]);
+      const [res1, res2] = await Promise.all([fetch(baseUrl), fetch(topUrl)]);
 
       const data1 = await res1.json();
       const data2 = await res2.json();
 
       setData(data1);
       setTopProducts(data2);
-
     } catch (err) {
       console.log(err);
     }
@@ -64,7 +59,7 @@ export default function Report() {
     const resetFilters = {
       startDate: "",
       endDate: "",
-      category: ""
+      category: "",
     };
 
     setFilters(resetFilters);
@@ -72,17 +67,17 @@ export default function Report() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>📊 Sales Report</h2>
+    <div className="rp-container">
+      <h2 className="rp-title">📊 Sales Report</h2>
 
-      {/*  Filter Form */}
-      <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-        
+      {/* Filter */}
+      <form onSubmit={handleSubmit} className="rp-form">
         <input
           type="date"
           name="startDate"
           value={filters.startDate}
           onChange={handleChange}
+          className="rp-input"
         />
 
         <input
@@ -90,90 +85,83 @@ export default function Report() {
           name="endDate"
           value={filters.endDate}
           onChange={handleChange}
-          style={{ marginLeft: "10px" }}
+          className="rp-input"
         />
 
         <select
           name="category"
           value={filters.category}
           onChange={handleChange}
-          style={{ marginLeft: "10px" }}
+          className="rp-select"
         >
           <option value="">All Category</option>
           <option value="Clothing">Clothing</option>
           <option value="Electronics">Electronics</option>
           <option value="Grocery">Grocery</option>
-          <option value="footwear">footwear</option>
+          <option value="footwear">Footwear</option>
         </select>
 
-        <button type="submit" style={{ marginLeft: "10px" }}>
+        <button type="submit" className="rp-btn filter">
           Filter
         </button>
 
-        <button
-          type="button"
-          onClick={handleReset}
-          style={{ marginLeft: "10px" }}
-        >
+        <button type="button" onClick={handleReset} className="rp-btn reset">
           Reset
         </button>
       </form>
 
       {/* Top 5 */}
-      <h3>Top 5 Products</h3>
+      <h3 className="rp-subtitle">Top 5 Products</h3>
 
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+      <div className="rp-top-grid">
         {topProducts.map((item, index) => (
-          <div key={index} style={{
-            border: "1px solid #ddd",
-            padding: "10px",
-            borderRadius: "8px",
-            width: "150px"
-          }}>
+          <div key={index} className="rp-card">
             <h4>{item.name}</h4>
             <p>{item.category}</p>
             <p>Qty: {item.total_qty}</p>
-            <p>₹{item.total_sales}</p>
+            <p className="rp-price">₹{item.total_sales}</p>
           </div>
         ))}
       </div>
 
-      {/*  Table */}
-      <table border="1" cellPadding="10" width="100%">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Category</th>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.length > 0 ? (
-            data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.category}</td>
-                <td>{item.name}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>{item.total}</td>
-                <td>{item.order_date}</td>
-              </tr>
-            ))
-          ) : (
+      {/* Table */}
+      <div className="rp-table-wrapper">
+        <table className="rp-table">
+          <thead>
             <tr>
-              <td colSpan="7" align="center">
-                No Data Found
-              </td>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Date</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {data.length > 0 ? (
+              data.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.category}</td>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                  <td>₹{item.price}</td>
+                  <td>₹{item.total}</td>
+                  <td>{item.order_date}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="rp-no-data">
+                  No Data Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
