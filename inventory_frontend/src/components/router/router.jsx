@@ -8,6 +8,7 @@ import Sales from "../../pages/sales/sale";
 import SalesProduct from "../../pages/salesProduct/salesProduct";
 import Report from "../../pages/report/report";
 import ProductDetails from "../../pages/productDetails/productDetails";
+import Footer from "../footer/footer";
 
 
 // pages 
@@ -31,7 +32,7 @@ function Router() {
         <Route path="/productDetails/id/:id" element={<ProductDetails></ProductDetails>} />
         <Route path="/report" element={<Report></Report>} />
       </Routes>
-      
+      <Footer></Footer>
     </BrowserRouter>
   );
 }

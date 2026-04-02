@@ -1,0 +1,25 @@
+/* Footer */
+.ft-container {
+  background: #1e293b;
+  color: #e2e8f0;
+  text-align: center;
+  padding: 15px;
+  margin-top: auto;
+}
+
+/* Links */
+.ft-links {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .ft-links {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
