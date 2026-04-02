@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import "./product_page.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ProductFilter from "../../components/filterProducts/filterProducts";
+
 
 export default function Product_page() {
   const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
   const navigate = useNavigate();
 
@@ -30,11 +33,33 @@ export default function Product_page() {
       .catch((err) => console.log(err));
   };
 
+  //fultion for filter
+  const handleFilter = (filters) => {
+  let filtered = allProducts;
+
+  if (filters.category) {
+    filtered = filtered.filter(
+      (p) => p.category.toLowerCase() === filters.category.toLowerCase()
+    );
+  }
+
+  if (filters.id) {
+    filtered = filtered.filter((p) => p.id == filters.id);
+  }
+
+  setProducts(filtered);
+};
+
   useEffect(() => {
     fetch(`http://localhost:5000/products/`)
       .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => {
+        setProducts(data);
+        setAllProducts(data);
+       
+      })
       .catch((err) => console.log(err));
+      
   }, []);
 
   return (
@@ -45,6 +70,7 @@ export default function Product_page() {
         <Link to="/add-product">
           <button className="pp-btn-add">+ Add Product</button>
         </Link>
+        <ProductFilter onFilter={handleFilter}/>
       </div>
 
       {/* Content */}

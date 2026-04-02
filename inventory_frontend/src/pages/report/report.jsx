@@ -78,6 +78,7 @@ export default function Report() {
           value={filters.startDate}
           onChange={handleChange}
           className="rp-input"
+          max={new Date().toISOString().split("T")[0]}
         />
 
         <input
@@ -86,6 +87,7 @@ export default function Report() {
           value={filters.endDate}
           onChange={handleChange}
           className="rp-input"
+          max={new Date().toISOString().split("T")[0]}
         />
 
         <select
