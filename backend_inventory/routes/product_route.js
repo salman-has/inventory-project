@@ -15,13 +15,13 @@ router.get("/category/:category", (req, res) => {
 });
 
 //get- product by id...
-router.get("/id/:id", (req, res) => {
-  const id = req.params.id;
-  console.log("ID received:", id);
-  if (id && id != "") {
-    const sql = "SELECT * FROM products WHERE id = ?";
-    db.query(sql, [id], (err, result) => {
-      if (err) return res.send(err);
+router.get("/id/:id", (req, res)=>{
+  const id=req.params.id;
+  console.log("ID received:", id); 
+  if(id && id !=""){
+    const sql="SELECT * FROM products WHERE id = ?";
+    db.query(sql, [id], (err, result)=>{
+      if(err) return res.send(err);
       console.log("DB result:", result);
       res.json(result);
     });
@@ -36,17 +36,14 @@ router.get("/", (req, res) => {
   });
 });
 
-// for testing
-app.get("/", (req, res) => {
-  res.send("API Running 🚀");
-});
+
 
 // ADD product
 router.post("/addpro", (req, res) => {
   const { category, product_id, name, price, stock } = req.body;
   const sql =
     "INSERT INTO products(category, product_id, name, price, stock) VALUES (?,?,?,?,?)";
-  db.query(sql, [category, product_id, name, price, stock], (err, result) => {
+   db.query(sql, [category, product_id, name, price, stock], (err, result) => {
     if (err) return res.send(err);
     res.json({ message: "Product added" });
   });
@@ -79,14 +76,15 @@ router.delete("/delete/:id", (req, res) => {
 
 //sales product report
 router.post("/sale", async (req, res) => {
-  const { items } = req.body;
+  
+ const { items } = req.body;
 
-  // console.log("body: ", req.body);
+// console.log("body: ", req.body);
 
-  //  correct validation
-  if (!items || items.length === 0) {
-    return res.json({ message: "Invalid data" });
-  }
+//  correct validation
+if (!items || items.length === 0) {
+  return res.json({ message: "Invalid data" });
+}
   try {
     let total = 0;
 
@@ -198,7 +196,7 @@ router.get("/sales-report", async (req, res) => {
   }
 });
 
-//sales report view by selected data
+//sales report view by selected data 
 router.get("/report/sales", async (req, res) => {
   const { startDate, endDate, category } = req.query;
 
@@ -240,11 +238,13 @@ router.get("/report/sales", async (req, res) => {
     const [rows] = await db.promise().query(query, params);
 
     res.json(rows);
+
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 //top five rows filter according date and category
 router.get("/report/top-sale-products", async (req, res) => {
@@ -289,6 +289,7 @@ router.get("/report/top-sale-products", async (req, res) => {
     const [rows] = await db.promise().query(query, params);
 
     res.json(rows);
+
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Server error" });
@@ -311,9 +312,10 @@ router.get("/report/summary", async (req, res) => {
   }
 });
 
+
 //top sale report...
-router.get("/report/top-sale", async (req, res) => {
-  try {
+router.get("/report/top-sale", async(req,res)=>{
+  try{
     const [rows] = await db.promise().query(
       ` SELECT 
         p.id,
@@ -324,37 +326,40 @@ router.get("/report/top-sale", async (req, res) => {
       JOIN products p ON p.id = oi.p_id
       GROUP BY p.id, p.category, p.name
       ORDER BY total_quantity DESC
-      LIMIT 5`,
-    );
+      LIMIT 5`
+    )
     res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: " Error fetching in top sales report." });
+  }
+
+  catch(err){
+    res.status(500).json({error: " Error fetching in top sales report."})
+
   }
 });
 
 // report of category-wise sales
-router.get("/report/category-sale", async (req, res) => {
-  try {
-    const [rows] = await db.promise().query(
-      `SELECT 
+router.get("/report/category-sale", async(req, res)=>{
+  try{
+      const [rows] = await db.promise().query(
+        `SELECT 
         p.category,
         SUM(oi.quantity) AS total_quantity,
         IFNULL(SUM(oi.total), 0) AS total_sales
       FROM order_items oi
       JOIN products p ON p.id = oi.p_id
       GROUP BY p.category
-      ORDER BY total_sales DESC`,
-    );
+      ORDER BY total_sales DESC`
+      ) 
 
-    res.json(rows);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Error fatching category wise sale report." });
+      res.json(rows);
   }
+  catch(err){
+    res.status(500).json({error : "Error fatching category wise sale report."});
+  }
+ 
 });
 
-// low stock product find
+// low stock product find 
 router.get("/report/low-stock", async (req, res) => {
   try {
     const [rows] = await db.promise().query(`
@@ -366,6 +371,7 @@ router.get("/report/low-stock", async (req, res) => {
     `);
 
     res.json(rows);
+
   } catch (err) {
     res.status(500).json({ error: "Error fetching low stock" });
   }
