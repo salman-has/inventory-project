@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-  host: "localhost",
+  host: process.env.DB_HOST,
   user: "usersh",
   password: "",
   database: "inventory"
@@ -16,3 +16,4 @@ db.connect((err) => {
 });
 
 module.exports = db;
+// https://function-bun-production-cb0f.up.railway.app/
