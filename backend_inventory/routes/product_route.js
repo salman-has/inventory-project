@@ -29,7 +29,7 @@ router.get("/id/:id", (req, res)=>{
 });
 
 //getting all deafult products
-router.get("/", (req, res) => {
+router.get("/products", (req, res) => {
   db.query("SELECT * FROM products", (err, result) => {
     
     if (err) {
