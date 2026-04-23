@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 
+     //--local database      conneion
 // const db = mysql.createConnection({
 //   host: process.env.DB_HOST,
 //   user: "usersh",
@@ -7,6 +8,7 @@ const mysql = require("mysql2");
 //   database: "inventory"
 // });
 
+//hosted databsser Railway...
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
