@@ -21,13 +21,13 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-db.connect((err) => {
-  if (err) {
-    console.log("DB Error:", err);
-  } else {
-    console.log("MySQL Connected");
-  }
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.log("DB Error:", err);
+//   } else {
+//     console.log("MySQL Connected");
+//   }
+// });
 
 module.exports = db;
 // https://function-bun-production-cb0f.up.railway.app/
