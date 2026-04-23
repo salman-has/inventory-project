@@ -9,16 +9,12 @@ const mysql = require("mysql2");
 // });
 
 //hosted databsser Railway...
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
-  password2:process.env.MYSQL_ROOT_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  port: process.env.MYSQLPORT,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT
 });
 
 // db.connect((err) => {
