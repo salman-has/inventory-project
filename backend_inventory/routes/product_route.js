@@ -31,8 +31,13 @@ router.get("/id/:id", (req, res)=>{
 //getting all deafult products
 router.get("/", (req, res) => {
   db.query("SELECT * FROM products", (err, result) => {
-    if (err) return res.send(err);
-    res.json(result);
+    
+    if (err) {
+      console.log("SQL ERROR:", err);   // 👈
+      res.json(err);
+    } else {
+      res.json(result);
+    }
   });
 });
 
