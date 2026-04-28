@@ -3,7 +3,7 @@ import "./navbar.css";
 export default function Navbar() {
   return (
     <div className="nav-container">
-      <h1 className="nav-logo">Inventory Systems</h1>
+      <h1 className="nav-logo">Demo proj</h1>
 
       <div className="nav-links">
         <Link to="/" className="nav-link">

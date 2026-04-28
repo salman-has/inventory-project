@@ -14,15 +14,20 @@ export default function ProductDetails() {
   useEffect(() => {
     const loadData = async () => {
       try {
+
         // product fetch
-        const res = await fetch(`http://localhost:5000/products/id/${id}`);
+        // const res = await fetch(`http://localhost:5000/products/id/${id}`);
+        const res = await fetch(`  https://inventory-project-y1p5.onrender.com/products/id/${id}`);
+      
         const data = await res.json();
 
         setProduct(data[0]);
+        console.log("prd= ",product);
 
         // related products (same category)
         const res2 = await fetch(
-          `http://localhost:5000/products/category/${data[0].category}`,
+          // `http://localhost:5000/products/category/${data[0].category}`,
+           `https://inventory-project-y1p5.onrender.com/products/category/${data[0].category}`,
         );
         const relatedData = await res2.json();
 
@@ -41,7 +46,7 @@ export default function ProductDetails() {
 
   const handleOrder = async () => {
     try {
-      const res = await fetch("http://localhost:5000/products/sale", {
+      const res = await fetch("https://inventory-project-y1p5.onrender.com/products/sale", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

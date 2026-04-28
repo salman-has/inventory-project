@@ -19,7 +19,7 @@ export default function UpdateProduct() {
 
   //🔥 Load existing product
   useEffect(() => {
-    fetch(`http://localhost:5000/products/id/${id}`)
+    fetch(`https://inventory-project-y1p5.onrender.com/products/id/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setForm(data[0]);
@@ -34,7 +34,7 @@ export default function UpdateProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/products/update/${id}`, {
+    fetch(`https://inventory-project-y1p5.onrender.com/products/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

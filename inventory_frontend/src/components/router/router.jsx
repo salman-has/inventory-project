@@ -9,6 +9,7 @@ import SalesProduct from "../../pages/salesProduct/salesProduct";
 import Report from "../../pages/report/report";
 import ProductDetails from "../../pages/productDetails/productDetails";
 import Footer from "../footer/footer";
+import "./router.css";
 
 
 // pages 
@@ -20,8 +21,9 @@ import Footer from "../footer/footer";
 function Router() {
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
-
+    <div className="app-layout"><Navbar></Navbar></div>
+     
+      <div className="main-content">
       <Routes>
         <Route path="/" element={<Dashboard></Dashboard>} />
         <Route path="/product_page" element={<Product_page />} />
@@ -32,6 +34,7 @@ function Router() {
         <Route path="/productDetails/id/:id" element={<ProductDetails></ProductDetails>} />
         <Route path="/report" element={<Report></Report>} />
       </Routes>
+      </div>
       <Footer></Footer>
     </BrowserRouter>
   );

@@ -84,7 +84,7 @@ router.post("/sale", async (req, res) => {
   
  const { items } = req.body;
 
-// console.log("body: ", req.body);
+ console.log("body: ", req.body);
 
 //  correct validation
 if (!items || items.length === 0) {

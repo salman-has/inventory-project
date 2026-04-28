@@ -20,7 +20,8 @@ export default function Product_page() {
   const handleDelete = (id) => {
     if (!window.confirm("Are you sure to delete?")) return;
 
-    fetch(`http://localhost:5000/products/delete/${id}`, {
+    // fetch(`http://localhost:5000/products/delete/${id}`, {
+    fetch(`https://inventory-project-y1p5.onrender.com/products/delete/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -29,11 +30,12 @@ export default function Product_page() {
 
         // UI update (without reload)
         setProducts(products.filter((p) => p.id !== id));
+        console.log(products);
       })
       .catch((err) => console.log(err));
   };
 
-  //fultion for filter
+  //function for filter
   const handleFilter = (filters) => {
   let filtered = allProducts;
 
@@ -51,11 +53,13 @@ export default function Product_page() {
 };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/`)
+    // fetch(`http://localhost:5000/products/`)
+    fetch(`https://inventory-project-y1p5.onrender.com/products`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
         setAllProducts(data);
+        console.log(products);
        
       })
       .catch((err) => console.log(err));

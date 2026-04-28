@@ -12,15 +12,18 @@ export default function Dashboard() {
 
   useEffect(() => {
     // fetch summary report
-    fetch("http://localhost:5000/products/report/summary")
+    // fetch("http://localhost:5000/products/report/summary")
+     fetch("https://inventory-project-y1p5.onrender.com/products/report/summary")
       .then((res) => res.json())
       .then((data) => {
         setSummary(data);
       })
       .catch((err) => console.log(err));
 
+
     //top soled product find api
-    fetch("http://localhost:5000/products/report/top-sale")
+    // fetch("http://localhost:5000/products/report/top-sale")
+    fetch("https://inventory-project-y1p5.onrender.com/products/report/top-sale")
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {
@@ -29,7 +32,8 @@ export default function Dashboard() {
       });
 
     // api route for low stock ...
-    fetch("http://localhost:5000/products/report/low-stock")
+    // fetch("http://localhost:5000/products/report/low-stock")
+     fetch("https://inventory-project-y1p5.onrender.com/products/report/low-stock")
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {

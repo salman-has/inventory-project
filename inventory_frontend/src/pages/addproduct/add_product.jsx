@@ -3,12 +3,13 @@ import "./add_product.css";
 
 export default function Add_product() {
   const [form, setForm] = useState({
-    category: "",
-    produt_id: "",
+    // category: "",
+    // produt_id: "",
     name: "",
-   
     price: "",
     stock: "",
+    category: "",
+    product_id: "",
   });
 
   const handleChange = (e) => {
@@ -18,7 +19,8 @@ export default function Add_product() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/products/addpro", {
+    // fetch("http://localhost:5000/products/addpro", {
+    fetch("https://inventory-project-y1p5.onrender.com/products/addpro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,12 +31,13 @@ export default function Add_product() {
       .then((data) => {
         alert("Product added successfully");
         setForm({
-          category: "",
-          product_id: "",
+          
           name: "",
          
           price: "",
           stock: "",
+          category: "",
+          product_id: "",
         });
       })
       .catch((err) => console.log(err));

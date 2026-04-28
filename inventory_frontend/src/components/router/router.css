@@ -1,0 +1,12 @@
+/* full page layout */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  /* min-height: 70vh; */
+}
+
+/* content expand kare */
+.main-content {
+  flex: 1;
+
+min-height: 700px;}

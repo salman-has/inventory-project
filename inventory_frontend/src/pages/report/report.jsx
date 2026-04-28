@@ -19,8 +19,8 @@ export default function Report() {
   // fetch function
   const fetchData = async (customFilters = filters) => {
     try {
-      let baseUrl = "http://localhost:5000/products/report/sales";
-      let topUrl = "http://localhost:5000/products/report/top-sale-products";
+      let baseUrl = "https://inventory-project-y1p5.onrender.com/products/report/sales";
+      let topUrl = "https://inventory-project-y1p5.onrender.com/products/report/top-sale-products";
 
       const query = new URLSearchParams(
         Object.fromEntries(Object.entries(customFilters).filter(([_, v]) => v)),
